@@ -18,13 +18,15 @@ screen = pygame.display.set_mode([600, 400])
 pygame.display.set_caption("Simple Play Wave Files")
 
 # pick a wave (.wav) sound file you have in the given directory
-directory = "C:/Users/Robert/Documents/School/PennApps/Python/sounds"
+directory = "/Eileen/CMUSoph/PennApps/beatstreet/BeatStreetPythonCode/sounds"
 
-left_heel = load_sound("Synth_01.wav", directory)
-left_toe = load_sound("Tom_01.wav", directory)
+left_heel = load_sound("Cymbal_01.wav", directory)
+left_foot = load_sound("Cowbell_01.wav", directory)
+left_toe = load_sound("Silent.wav", directory)
 
-right_heel = load_sound("Snare_01.wav", directory)
-right_toe = load_sound("Tom_02.wav", directory)
+right_heel = load_sound("Silent.wav", directory)
+right_foot = load_sound("Tom_01.wav", directory)
+right_knee = load_sound("Synth_01.wav", directory)
 
 scratch_in_right = load_sound("Scratch_in_01.wav", directory)
 scratch_out_right = load_sound("Scratch_out_01.wav", directory)
@@ -34,6 +36,13 @@ scratch_out_left = load_sound("Scratch_out_02.wav", directory)
 
 shots = load_sound("Shots_01.wav", directory)
 shots_continuation = load_sound("Shots_02.wav", directory)
+shots_lock = True
+
+myo_fist_closed = load_sound("Clap_01.wav", directory)
+myo_fingers_spread = load_sound("Boom_02.wav", directory)
+myo_yaw_right = load_sound("Wub_01.wav", directory)
+myo_yaw_left = load_sound("Wub_02.wav", directory)
+myo_pitch_down = load_sound("Wub_03.wav", directory)
 
 # optional color change
 
@@ -48,11 +57,11 @@ while True:
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_b):
             left_heel.play()
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_c):
-            left_toe.play()
+            left_foot.play()
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_d):
             right_heel.play()
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_e):
-            right_toe.play()
+            right_foot.play()
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_f):
             scratch_in_right.play()
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_g):
@@ -64,16 +73,26 @@ while True:
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_j):
             if (pygame.mixer.get_busy() == False):
                 shots.play()
-        if (event.type == pygame.KEYDOWN and event.key == pygame.K_k):
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_k and shots_lock == False):
             if (pygame.mixer.get_busy() == False):
                 shots_continuation.play()
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_l):
-            right_toe.play()
+            myo_fist_closed.play()
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_m):
-            right_heel.play()
+            myo_fingers_spread.play()
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_n):
+            myo_yaw_right.play()
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_o):
-            scratch_out_right.play()
+            myo_yaw_left.play()
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_p):
-            scratch_in_right.play()
+           myo_pitch_down.play()
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_q):
-            shots_continuation.play()
+           left_toe.play()
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_r):
+           right_knee.play()
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_LEFTBRACKET):
+           shots_lock = False
+        if (event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHTBRACKET):
+           shots_lock = True
+
+

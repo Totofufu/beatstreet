@@ -70,21 +70,23 @@ public:
             //FIST SOUND
             CGEventRef e = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)37, true);
             CGEventPost(kCGSessionEventTap, e);
-            CFRelease(e);
+            
             CGEventRef e2 = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)37, false);
             CGEventPost(kCGSessionEventTap, e2);
+            CFRelease(e);
             
         }
         if (pose == myo::Pose::fingersSpread) {
-            //myo->vibrate(myo::Myo::vibrationLong);
+            myo->vibrate(myo::Myo::vibrationShort);
             
 
             //FINGERS SPREAD SOUND
             CGEventRef e = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)46, true);
             CGEventPost(kCGSessionEventTap, e);
-            CFRelease(e);
+            
             CGEventRef e2 = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)46, false);
             CGEventPost(kCGSessionEventTap, e2);
+            CFRelease(e);
      
         }
     }
@@ -129,32 +131,37 @@ public:
         // now we have the real yaw
         int dif=realYaw-prevYaw;
         
-        if (abs(dif)>2){ //A sound is happening
-            if (dif>0){ //DJ out 
-                //myo::Myo->vibrate(myo::Myo::vibrationShort); //DJ out
-                if (isIn==true){
-                    std::cout << "DJ OUT SOUND ~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+        if (pitch_w <= 120 and pitch_w >= 75) {
+        
+            if (abs(dif)>2){ //A sound is happening
+                if (dif>0){ //DJ out
+                    //myo::Myo->vibrate(myo::Myo::vibrationShort); //DJ out
+                    if (isIn==true){
+                        std::cout << "DJ OUT SOUND ~~~~~~~~~~~~~~~~~~~~~" << std::endl;
                     
-                    //DJ OUT SOUND
-                    CGEventRef e = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)31, true);
-                    CGEventPost(kCGSessionEventTap, e);
-                    CFRelease(e);
-                    CGEventRef e2 = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)31, false);
-                    CGEventPost(kCGSessionEventTap, e2);
-                    isIn=false;
+                        //DJ OUT SOUND
+                        CGEventRef e = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)45, true);
+                        CGEventPost(kCGSessionEventTap, e);
+                        CFRelease(e);
+                        CGEventRef e2 = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)45, false);
+                        CGEventPost(kCGSessionEventTap, e2);
+                        isIn=false;
+                    }
                 }
-            }else{
-                //myo->vibrate(myo::Myo::vibrationShort); //DJ in
-                if (isIn==false){
-                    std::cout << "DJ IN SOUND ~~~~~~~~~~~~~~~~~~~~~" << std::endl;
+                else
+                {
+                    //myo->vibrate(myo::Myo::vibrationShort); //DJ in
+                    if (isIn==false){
+                        std::cout << "DJ IN SOUND ~~~~~~~~~~~~~~~~~~~~~" << std::endl;
                     
-                    //DJ IN SOUND
-                    CGEventRef e = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)35, true);
-                    CGEventPost(kCGSessionEventTap, e);
-                    CFRelease(e);
-                    CGEventRef e2 = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)35, false);
-                    CGEventPost(kCGSessionEventTap, e2);
-                    isIn=true;
+                        //DJ IN SOUND
+                        CGEventRef e = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)31, true);
+                        CGEventPost(kCGSessionEventTap, e);
+                        CFRelease(e);
+                        CGEventRef e2 = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)31, false);
+                        CGEventPost(kCGSessionEventTap, e2);
+                        isIn=true;
+                    }
                 }
             }
         }
@@ -163,14 +170,14 @@ public:
         //take care of pitch sound
         int currPitch = pitch_w;
         int pitchDif = currPitch-prevPitch;
-        std::cout << "PITCHDIF VALUE IS " << pitchDif << " " << std::endl;
+        //std::cout << "PITCHDIF VALUE IS " << pitchDif << " " << std::endl;
         
         //then send pitch sound
         if (pitchDif > 6 and lagged == false) {
-            CGEventRef e = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)12, true);
+            CGEventRef e = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)35, true);
             CGEventPost(kCGSessionEventTap, e);
             CFRelease(e);
-            CGEventRef e2 = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)12, false);
+            CGEventRef e2 = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)35, false);
             CGEventPost(kCGSessionEventTap, e2);
             countFirstDiff = countFirst;
             lagged = true;
